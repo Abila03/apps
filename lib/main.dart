@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'homepage.dart';
+import 'landing_page.dart';
 
 void main() async {
 
@@ -20,10 +21,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // Set the initial route to the login page
-      initialRoute: '/login',
+      initialRoute: '/landing',
       routes: {
         '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
+        '/landing': (context) => LandingPage(),
       },
     );
   }
