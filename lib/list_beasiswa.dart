@@ -17,9 +17,9 @@ class ListBeasiswa extends StatefulWidget {
 
 class _ListBeasiswaState extends State<ListBeasiswa> {
   final List<Scholarship> scholarships = [
-    Scholarship(name: 'Djarum Beasiswa Plus', imageUrl: 'images/poster.jpg', details: 'Pendaftaran : 10 Juni - 10 Juli 2024',),
-    Scholarship(name: 'Beasiswa Indonesia Bangkit', imageUrl: 'images/poster.jpg', details: 'Pendaftaran : 10 Juni - 10 Juli 2024'),
-    Scholarship(name: 'LPDP Beasiswa', imageUrl: 'images/poster.jpg', details: 'Pendaftaran : 10 Juni - 10 Juli 2024'),
+    Scholarship(name: 'Djarum Beasiswa Plus', imageUrl: 'images/poster 6.jpg', details: 'Pendaftaran : 10 Juni - 10 Juli 2024',),
+    Scholarship(name: 'Beasiswa Indonesia Bangkit', imageUrl: 'images/poster 2.jpg', details: 'Pendaftaran : 30 Mei - 15 Juli 2024'),
+    Scholarship(name: 'LPDP Beasiswa', imageUrl: 'images/poster 5.png', details: 'Pendaftaran : 1 Juni - 30 Juli 2024'),
   ];
 
   final TextEditingController _searchController = TextEditingController();
@@ -65,19 +65,6 @@ class _ListBeasiswaState extends State<ListBeasiswa> {
             Column(
               children: filteredScholarships.map((scholarship) => ScholarshipCard(scholarship: scholarship)).toList(),
             ),
-            SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Simulate logout by popping back to login
-              },
-              child: Text('Logout'),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                minimumSize: Size(double.infinity, 50.0),
-              ),
-            ),
           ],
         ),
       ),
@@ -107,8 +94,9 @@ class ScholarshipCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   scholarship.imageUrl,
-                  scale: 14,
-                  fit: BoxFit.cover,
+                  scale : 6,
+                  fit: BoxFit.cover, 
+                  //fit: BoxFit.fitWidth,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       width: 80.0,
