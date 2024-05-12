@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'homepage.dart';
+import 'list_beasiswa.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => ListBeasiswa()),
                   );
                 },
                 child: Text('Login'),
@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => ListBeasiswa()),
                   );
                 },
                 child: Text('Register'),
