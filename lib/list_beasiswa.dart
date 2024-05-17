@@ -1,3 +1,4 @@
+import 'package:apps/details_beasiswa.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -78,11 +79,16 @@ class ScholarshipCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+    return InkWell(
+      onTap: () {
+        // Navigate to detail page or perform any action on tap
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DBeasiswa(),
+          ),
+        );
+      },
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Row(

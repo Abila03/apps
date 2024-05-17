@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'list_beasiswa.dart';
 import 'landing_page.dart';
+import 'details_beasiswa.dart';
 
 void main() async {
 
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/landing',
       routes: {
         '/login': (context) => LoginPage(),
-        '/home': (context) => ListBeasiswa(),
+        '/list': (context) => ListBeasiswa(),
+        '/detail': (context)=> DBeasiswa(),
         '/landing': (context) => LandingPage(),
       },
     );
