@@ -28,7 +28,6 @@ class _DBeasiswaState extends State<DBeasiswa> {
   );
 
   final TextEditingController _searchController = TextEditingController();
-  String _searchText = '';
 
   @override
   void dispose() {

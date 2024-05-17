@@ -3,6 +3,7 @@ import 'login_page.dart';
 import 'list_beasiswa.dart';
 import 'landing_page.dart';
 import 'details_beasiswa.dart';
+import 'registrasi.dart';
 
 void main() async {
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/list': (context) => ListBeasiswa(),
         '/detail': (context)=> DBeasiswa(),
+        '/registrasi': (context)=> Registrasi(),
         '/landing': (context) => LandingPage(),
       },
     );
