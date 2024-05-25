@@ -1,6 +1,5 @@
 import 'package:apps/login_page.dart';
 import 'package:flutter/material.dart';
-import 'list_beasiswa.dart';
 import 'registrasi.dart';
 
 class LandingPage extends StatefulWidget {
@@ -23,7 +22,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('images/BeasiswaKu.png', scale: 6,),
+        title: Text(''),
         centerTitle: true, // Center the app bar title
       ),
       body: Center( // Center the login form within the screen
@@ -36,6 +35,10 @@ class _LandingPageState extends State<LandingPage> {
               Align(
                 widthFactor: 10,
                 child: Image.asset('images/person.png', scale: 6,),
+              ),
+              Align(
+                widthFactor: 10,
+                child: Image.asset('images/BeasiswaKu.png', scale: 6,),
               ),
               SizedBox(height: 30.0),
               ElevatedButton(

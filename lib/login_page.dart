@@ -36,6 +36,10 @@ class _LoginPageState extends State<LoginPage> {
                 widthFactor: 10,
                 child: Image.asset('images/person.png', scale: 6,),
               ),
+              Align(
+                widthFactor: 10,
+                child: Image.asset('images/BeasiswaKu.png', scale: 6,),
+              ),
               SizedBox(height: 20.0),
               TextField(
                 controller: _emailController,

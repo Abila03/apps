@@ -1,7 +1,12 @@
+import 'package:apps/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'notifikasi.dart';
+import 'profile.dart';
+import 'list_beasiswa.dart';
+import 'usermanage.dart';
 
 class Scholarship {
   final String name;
@@ -28,11 +33,16 @@ class _DBeasiswaState extends State<DBeasiswa> {
   );
 
   final TextEditingController _searchController = TextEditingController();
+  bool _isLoggedIn = false;
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+  Future<bool> _checkLogin() async {
+    // Implement your logic to check if user is logged in using UserManagement class or similar
+    return await UserManagement.isLoggedIn();
   }
 
   @override
@@ -53,13 +63,71 @@ class _DBeasiswaState extends State<DBeasiswa> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Beranda',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: 'Notifikasi',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profil',
+            ),
+          ],
+          currentIndex: 0, // Profil adalah item ketiga
+          onTap: (index) async {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListBeasiswa()),
+              );
+            } else if (index == 1) {
+              _isLoggedIn = await _checkLogin();
+              if (_isLoggedIn) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotifikasiPage()),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              }
+            } else if (index == 2) {
+              _isLoggedIn = await _checkLogin();
+              if (_isLoggedIn) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfilePage()),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              }
+            }
+          },
+        ),
     );
   }
 }
 class ScholarshipCard extends StatelessWidget {
   final Scholarship scholarship;
+  bool _isLoggedIn = false;
 
-  const ScholarshipCard({Key? key, required this.scholarship}) : super(key: key);
+  @override
+  Future<bool> _checkLogin() async {
+    // Implement your logic to check if user is logged in using UserManagement class or similar
+    return await UserManagement.isLoggedIn();
+  }
+
+  ScholarshipCard({Key? key, required this.scholarship}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -141,19 +209,28 @@ class ScholarshipCard extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    if (await canLaunchUrl(Uri.parse(scholarship.link))) {
-                      await launchUrl(Uri.parse(scholarship.link));
+                    _isLoggedIn = await _checkLogin();
+                    if (_isLoggedIn) {
+                      if (await canLaunchUrl(Uri.parse(scholarship.link))) {
+                        await launchUrl(Uri.parse(scholarship.link));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Link pendaftaran tidak valid')),
+                        );
+                      }
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Link pendaftaran tidak valid')),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     }
                   },
                   child: Text('Daftar Sekarang'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-                    textStyle: TextStyle(color: Colors.white),
+                    backgroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 12.0
+                    ),
                   ),
                 ),
               ],

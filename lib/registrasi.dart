@@ -1,20 +1,68 @@
+import 'package:apps/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_validator/form_validator.dart';
 
+class SchoolData{
+  final String sekolah;
+  final String jurusan;
+  final int angkatan;
+
+  SchoolData({
+  required this.sekolah,
+  required this.jurusan,
+  required this.angkatan,
+  });
+
+  SchoolData copyWith({
+    String? sekolah,
+    String? jurusan,
+    int? angkatan,
+  }) {
+    return SchoolData(
+      sekolah: sekolah ?? this.sekolah,
+      jurusan: jurusan ?? this.jurusan,
+      angkatan: angkatan ?? this.angkatan,
+    );
+  }
+}
+class CollegeData{
+  final String kuliah;
+  final String prodi;
+  final int entry;
+  
+  CollegeData({
+  required this.kuliah,
+  required this.prodi,
+  required this.entry,
+  });
+
+  CollegeData copyWith({
+    String? kuliah,
+    String? prodi,
+    int? entry,
+  }) {
+    return CollegeData(
+      kuliah: kuliah ?? this.kuliah,
+      prodi: prodi ?? this.prodi,
+      entry: entry ?? this.entry,
+    );
+  }
+}
 class RegistrationData {
   final String email;
   final String fullName;
   final String password;
   final String confirmPassword;
   final String jenjang;
-
+ 
   RegistrationData({
     required this.email,
     required this.fullName,
     required this.password,
     required this.confirmPassword,
     required this.jenjang,
+    
   });
   RegistrationData copyWith({
     String? email,
@@ -55,6 +103,7 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
   final _fullNameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
 
   @override
   void dispose() {
@@ -153,6 +202,19 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
                 },
                 child: Text('Selanjutnya'),
               ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage()
+                      ),
+                    );
+                  
+                },
+                child: Text('Login'),
+              ),
             ],
           ),
         ),
@@ -228,36 +290,94 @@ class SchoolRegistrationPage extends StatefulWidget {
 
 class _SchoolRegistrationPageState extends State<SchoolRegistrationPage> {
   // Add form fields for school-specific information
-
+  final _schoolKey = GlobalKey<FormState>();
+  final _schoolController = TextEditingController();
+  final _jurusanController = TextEditingController();
+  final _angkatanController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Registrasi Sekolah'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            // Form fields for school registration
-            // ...
-
-            SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: () {
-                // Validate and process school registration data
-                // ...
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EmailVerificationPage(registrationData: widget.registrationData),
-                  ),
-                );
-              },
-              child: Text('Kirim Kode Verifikasi Email'),
-            ),
-          ],
+      body: Form(
+        key: _schoolKey,
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _schoolController,
+                decoration: InputDecoration(labelText: 'Nama Sekolah'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nama Sekolah tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _jurusanController,
+                decoration: InputDecoration(labelText: 'Jurusan'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Jurusan tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _angkatanController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Angkatan'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Angkatan tidak boleh kosong';
+                  }
+                  try {
+                  int.parse(value); // Try converting the input to an integer
+                    return null; // Valid input
+                  } on FormatException catch (_) {
+                    return 'Angkatan hanya berupa angka'; // Invalid input
+                  }
+                },
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  if (_schoolKey.currentState!.validate()) {
+                    final schoolData = SchoolData(
+                      sekolah: _schoolController.text,
+                      jurusan: _jurusanController.text,
+                      angkatan: _angkatanController.hashCode,
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmailVerificationPage(registrationData: widget.registrationData),
+                      ),
+                    );
+                  }
+                },
+                child: Text('Selanjutnya'),
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage()
+                      ),
+                    );
+                  
+                },
+                child: Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -273,7 +393,10 @@ class CollegeRegistrationPage extends StatefulWidget {
 }
 
 class _CollegeRegistrationPageState extends State<CollegeRegistrationPage> {
-  // Add form fields for college-specific information
+  final _collegeKey = GlobalKey<FormState>();
+  final _collegeController = TextEditingController();
+  final _prodiController = TextEditingController();
+  final _entryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -281,29 +404,84 @@ class _CollegeRegistrationPageState extends State<CollegeRegistrationPage> {
       appBar: AppBar(
         title: Text('Registrasi Perguruan Tinggi'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            // Form fields for college registration
-            // ...
-
-            SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: () {
-                // Validate and process college registration data
-                // ...
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EmailVerificationPage(registrationData: widget.registrationData),
-                  ),
-                );
-              },
-              child: Text('Kirim Kode Verifikasi Email'),
-            ),
-          ],
+      body: Form(
+        key: _collegeKey,
+        child: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _collegeController,
+                decoration: InputDecoration(labelText: 'Nama Perguruan Tinggi'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nama Perguruan Tinggi tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _prodiController,
+                decoration: InputDecoration(labelText: 'Program Studi'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Program Studi tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _entryController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Angkatan'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Angkatan tidak boleh kosong';
+                  }
+                  try {
+                  int.parse(value); // Try converting the input to an integer
+                    return null; // Valid input
+                  } on FormatException catch (_) {
+                    return 'Angkatan hanya berupa angka'; // Invalid input
+                  }
+                },
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                  if (_collegeKey.currentState!.validate()) {
+                    final collegeData = CollegeData(
+                      kuliah: _collegeController.text,
+                      prodi: _prodiController.text,
+                      entry: _entryController.hashCode,
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmailVerificationPage(registrationData: widget.registrationData),
+                      ),
+                    );
+                  }
+                },
+                child: Text('Selanjutnya'),
+              ),
+              SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage()
+                      ),
+                    );
+                  
+                },
+                child: Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -320,6 +498,8 @@ class EmailVerificationPage extends StatefulWidget {
 
 class _EmailVerificationPageState extends State<EmailVerificationPage> {
   final _formKey = GlobalKey<FormState>();
+  final _schoolKey = GlobalKey<FormState>();
+  final _collegeKey = GlobalKey<FormState>();
   final _verificationCodeController = TextEditingController();
 
   @override
@@ -391,7 +571,19 @@ class RegistrationCompletePage extends StatelessWidget {
             Text('Nama Lengkap: ${registrationData.fullName}'),
             Text('Kata Sandi: ${registrationData.password}'),
             Text('Jenjang Pendidikan: ${registrationData.jenjang}'),
-            // Add any other relevant registration details
+            SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage()
+                      ),
+                    );
+                  
+                },
+                child: Text('Login'),
+              ),
           ],
         ),
       ),
