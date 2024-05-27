@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
-import 'list_beasiswa.dart';
-import 'landing_page.dart';
-import 'details_beasiswa.dart';
-import 'registrasi.dart';
-import 'notifikasi.dart';
-import 'profile.dart';
-import 'riwayat.dart';
+import 'view/login_page.dart';
+import 'view/list_beasiswa.dart';
+import 'view/landing_page.dart';
+import 'view/details_beasiswa.dart';
+import 'view/registrasi.dart';
+import 'view/pendaftar/notifikasi.dart';
+import 'view/pendaftar/profile.dart';
+import 'view/pendaftar/riwayat.dart';
+import 'view/regulator/profile.dart';
+import 'view/pemberi/profile.dart';
 
 void main() async {
 
@@ -26,13 +28,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       // Set the initial route to the login page
-      initialRoute: '/list',
+      initialRoute: '/profiled',
       routes: {
         '/login': (context) => LoginPage(),
         '/list': (context) => ListBeasiswa(),
         '/detail': (context)=> DBeasiswa(),
         '/registrasi': (context)=> Registrasi(),
         '/profile':(context)=> ProfilePage(),
+        '/profiled':(context)=> ProfilePemberi(),
+        '/profiler':(context)=> ProfileRegulator(),
         '/notif':(context)=> NotifikasiPage(),
         '/riwayat':(context)=> RiwayatPage(),
         '/landing': (context) => LandingPage(),     

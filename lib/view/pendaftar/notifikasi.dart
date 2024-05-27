@@ -1,6 +1,6 @@
 import 'profile.dart';
 import 'package:flutter/material.dart';
-import 'list_beasiswa.dart';
+import '../list_beasiswa.dart';
 
 class NotifikasiPage extends StatelessWidget {
   const NotifikasiPage({super.key});

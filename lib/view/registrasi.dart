@@ -1,4 +1,4 @@
-import 'package:apps/login_page.dart';
+import 'package:apps/view/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_validator/form_validator.dart';

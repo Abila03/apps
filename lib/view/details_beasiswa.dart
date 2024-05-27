@@ -1,12 +1,13 @@
-import 'package:apps/login_page.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'notifikasi.dart';
-import 'profile.dart';
+import 'pendaftar/notifikasi.dart';
+import 'pendaftar/profile.dart';
 import 'list_beasiswa.dart';
-import 'usermanage.dart';
+import '../controller/usermanage.dart';
+import 'login_page.dart';
 
 class Scholarship {
   final String name;

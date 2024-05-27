@@ -1,14 +1,14 @@
-import 'package:apps/details_beasiswa.dart';
-import 'package:apps/login_page.dart';
+import 'package:apps/view/details_beasiswa.dart';
+import 'package:apps/view/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'notifikasi.dart';
-import 'profile.dart';
+import 'pendaftar/notifikasi.dart';
+import 'pendaftar/profile.dart';
 import '/services/newsAPI.dart';
 import '/models/news.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'usermanage.dart';
+import '../controller/usermanage.dart';
 
 class Scholarship {
   final String name;

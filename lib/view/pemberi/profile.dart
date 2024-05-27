@@ -1,11 +1,12 @@
-import 'package:apps/landing_page.dart';
+import 'package:apps/cp.dart';
+import 'package:apps/view/landing_page.dart';
 import 'package:flutter/material.dart';
-import 'riwayat.dart'; 
-import 'notifikasi.dart'; 
-import 'list_beasiswa.dart';
+//import 'riwayat.dart'; 
+//import 'notifikasi.dart'; 
+import '../list_beasiswa.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProfilePemberi extends StatelessWidget {
+  const ProfilePemberi({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,42 +22,42 @@ class ProfilePage extends StatelessWidget {
               leading: CircleAvatar(
                 backgroundColor: Colors.grey,
               ),
-              title: Text('Aulia Putri Romadon'),
-              subtitle: Text('Mahasiswa Universitas Jember'),
+              title: Text('PT. Astra International Tbk.'),
+              subtitle: Text('Perusahaan Terbuka'),
             ),
           ),
           const SizedBox(height: 16.0),
           ProfileMenuItem(
-            title: 'Manajemen Pendidikan',
+            title: 'Manajemen Beasiswa',
             onTap: () {
-              // Aksi ketika item diklik
             },
           ),
-          ProfileMenuItem(
-            title: 'Riwayat Beasiswa',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const RiwayatPage()),
-              );
-            },
-          ),
+          //ProfileMenuItem(
+            //title: 'Riwayat Beasiswa',
+            //onTap: () {
+              //Navigator.push(
+                //context,
+                //MaterialPageRoute(builder: (context) => const RiwayatPage()),
+              //);
+            //},
+          //),
           ProfileMenuItem(
             title: 'Ubah Kata Sandi',
             onTap: () {
-              // Aksi ketika item diklik
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => changepass()),
+              );
             },
           ),
           ProfileMenuItem(
             title: 'Bantuan',
             onTap: () {
-              // Aksi ketika item diklik
             },
           ),
           ProfileMenuItem(
             title: 'Kebijakan Privasi',
             onTap: () {
-              
             },
           ),
           ProfileMenuItem(
@@ -77,31 +78,33 @@ class ProfilePage extends StatelessWidget {
               icon: Icon(Icons.home),
               label: 'Beranda',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifikasi',
-            ),
+            //BottomNavigationBarItem(
+              //icon: Icon(Icons.notifications),
+              //label: 'Notifikasi',
+            //),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profil',
             ),
           ],
-          currentIndex: 2, // Profil adalah item ketiga
+          currentIndex: 1, // Profil adalah item ketiga
           onTap: (index) {
             if (index == 0) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ListBeasiswa()),
               );
-            } else if (index == 1) {
+            } 
+            //else if (index == 1) {
+              //Navigator.push(
+                //context,
+                //aterialPageRoute(builder: (context) => const NotifikasiPage()),
+              //);
+            //} 
+            else if (index == 1) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const NotifikasiPage()),
-              );
-            } else if (index == 2) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
+                MaterialPageRoute(builder: (context) => const ProfilePemberi()),
               );
             }
           },

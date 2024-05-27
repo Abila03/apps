@@ -1,4 +1,4 @@
-import 'package:apps/list_beasiswa.dart';
+import 'package:apps/view/list_beasiswa.dart';
 import 'package:flutter/material.dart';
 import 'profile.dart'; // Import file profile.dart
 import 'notifikasi.dart';
