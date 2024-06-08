@@ -1,14 +1,11 @@
 import 'package:apps/view/details_beasiswa.dart';
-import 'package:apps/view/login_page.dart';
+import 'package:apps/view/footer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'pendaftar/notifikasi.dart';
-import 'pendaftar/profile.dart';
 import '/services/newsAPI.dart';
 import '/models/news.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../controller/usermanage.dart';
 
 class Scholarship {
   final String name;
@@ -40,16 +37,11 @@ class _ListBeasiswaState extends State<ListBeasiswa> {
 
   final TextEditingController _searchController = TextEditingController();
   String _searchText = '';
-  bool _isLoggedIn = false;
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
-  }
-  Future<bool> _checkLogin() async {
-    // Implement your logic to check if user is logged in using UserManagement class or similar
-    return await UserManagement.isLoggedIn();
   }
 
   @override
@@ -135,57 +127,7 @@ class _ListBeasiswaState extends State<ListBeasiswa> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Beranda',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifikasi',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profil',
-            ),
-          ],
-          currentIndex: 0, // Profil adalah item ketiga
-          onTap: (index) async {
-            if (index == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ListBeasiswa()),
-              );
-            } else if (index == 1) {
-              _isLoggedIn = await _checkLogin();
-              if (_isLoggedIn) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const NotifikasiPage()),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              }
-            } else if (index == 2) {
-              _isLoggedIn = await _checkLogin();
-            if (_isLoggedIn) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            }
-            }
-          },
-        ),
+      bottomNavigationBar: Footer(),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'view/pendaftar/profile.dart';
 import 'view/pendaftar/riwayat.dart';
 import 'view/regulator/profile.dart';
 import 'view/pemberi/profile.dart';
+import 'view/home.dart';
 
 void main() async {
 
@@ -23,12 +24,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
+      title: 'BeasiswaKu',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      // Set the initial route to the login page
-      initialRoute: '/profiled',
+      initialRoute: '/landing',
       routes: {
         '/login': (context) => LoginPage(),
         '/list': (context) => ListBeasiswa(),
@@ -39,7 +39,8 @@ class MyApp extends StatelessWidget {
         '/profiler':(context)=> ProfileRegulator(),
         '/notif':(context)=> NotifikasiPage(),
         '/riwayat':(context)=> RiwayatPage(),
-        '/landing': (context) => LandingPage(),     
+        '/landing': (context) => LandingPage(),
+        '/home': (context) => Home(), 
       },
     );
   }

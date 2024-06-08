@@ -1,7 +1,6 @@
 import 'package:apps/view/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:form_validator/form_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SchoolData{
   final String sekolah;
@@ -84,7 +83,7 @@ class Registrasi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Registrasi Berlapis',
+      title: 'Registrasi',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -103,6 +102,7 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
   final _fullNameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  bool _showPassword = true;
 
 
   @override
@@ -125,10 +125,28 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start, // Center the form vertically
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Email',
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 5.0),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(
+                  labelText: 'Email kamu',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(0.5),
+                    ),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Email tidak boleh kosong';
@@ -139,10 +157,26 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 20.0),
+              Text(
+                'Nama Lengkap',
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 5.0),
               TextFormField(
                 controller: _fullNameController,
-                decoration: InputDecoration(labelText: 'Nama Lengkap'),
+                decoration: InputDecoration(
+                  labelText: 'Nama lengkap kamu',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(0.5),
+                    ),
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Nama lengkap tidak boleh kosong';
@@ -150,11 +184,38 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 20.0),
+              Text(
+                'Kata Sandi',
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 5.0),
               TextFormField(
                 controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Kata Sandi'),
+                obscureText: _showPassword,
+                decoration: InputDecoration(
+                  labelText: 'Masukkan Kata Sandi Kamu',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(0.5), // Atur tingkat opacity (0.0 - 1.0)
+                      width: 1.0, // Atur ketebalan border dalam pixel
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _showPassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _showPassword = !_showPassword;
+                      });
+                    },
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Kata sandi tidak boleh kosong';
@@ -165,11 +226,38 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 20.0),
+              Text(
+                'Konfirmasi Kata Sandi',
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 5.0),
               TextFormField(
                 controller: _confirmPasswordController,
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Konfirmasi Kata Sandi'),
+                obscureText: _showPassword,
+                decoration: InputDecoration(
+                  labelText: 'Masukkan konfirmasi kata sandi kamu',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(0.5), // Atur tingkat opacity (0.0 - 1.0)
+                      width: 1.0, // Atur ketebalan border dalam pixel
+                    ),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _showPassword ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _showPassword = !_showPassword;
+                      });
+                    },
+                  ),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Konfirmasi kata sandi tidak boleh kosong';
@@ -182,39 +270,41 @@ class _GeneralInfoPageState extends State<GeneralInfoPage> {
               ),
               SizedBox(height: 32.0),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final registrationData = RegistrationData(
-                      email: _emailController.text,
-                      fullName: _fullNameController.text,
-                      password: _passwordController.text,
-                      confirmPassword: _confirmPasswordController.text,
-                      jenjang: '', // Education level will be selected later
-                    );
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          final registrationData = RegistrationData(
+                            email: _emailController.text,
+                            fullName: _fullNameController.text,
+                            password: _passwordController.text,
+                            confirmPassword: _confirmPasswordController.text,
+                            jenjang: '', // Education level will be selected later
+                          );
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => jenjangPage(registrationData: registrationData),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => jenjangPage(registrationData: registrationData),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(
+                        'Selanjutnya',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Color.fromARGB(255, 238, 238, 238),
+                        ),
                       ),
-                    );
-                  }
-                },
-                child: Text('Selanjutnya'),
-              ),
-              SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginPage()
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0), // Rounded corners for button
+                        ),
+                        minimumSize: Size(double.infinity, 50.0), 
+                        backgroundColor: Color.fromARGB(255, 5, 122, 218),
                       ),
-                    );
-                  
-                },
-                child: Text('Login'),
-              ),
+                    ),
+                
+              
             ],
           ),
         ),

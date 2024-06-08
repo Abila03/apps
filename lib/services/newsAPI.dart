@@ -8,7 +8,7 @@ class NewsApiService {
   final String apiKey3 = '';
 
   Future<List<NewsModel>> fetchTopHeadlines() async {
-    final url = Uri.parse('https://newsapi.org/v2/everything?domains=wsj.com&apiKey=$apiKey1');
+    final url = Uri.parse('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=$apiKey1');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

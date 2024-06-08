@@ -33,27 +33,21 @@ class _LandingPageState extends State<LandingPage> {
             crossAxisAlignment: CrossAxisAlignment.center, // Center form elements horizontally
             children: [
               Align(
-                widthFactor: 10,
-                child: Image.asset('images/person.png', scale: 6,),
+                widthFactor: 20,
+                child: Image.asset('images/person.png', scale: 1,),
               ),
+              SizedBox(height: 20.0),
               Align(
-                widthFactor: 10,
-                child: Image.asset('images/BeasiswaKu.png', scale: 6,),
+                widthFactor: 11,
+                child: Image.asset('images/BeasiswaKu.png', scale: 3,),
               ),
-              SizedBox(height: 30.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-                child: Text('Login'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0), // Rounded corners for button
-                  ),
-                  minimumSize: Size(double.infinity, 50.0), // Set a minimum button size
+              SizedBox(height: 10.0),
+              Text(
+                textAlign: TextAlign.center,
+                'Sistem Pendaftaran Beasiswa Terpadu untuk Pendidikan Indonesia',
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Color.fromARGB(255, 126, 120, 120),
                 ),
               ),
               SizedBox(height: 30.0),
@@ -64,12 +58,47 @@ class _LandingPageState extends State<LandingPage> {
                     MaterialPageRoute(builder: (context) => Registrasi()),
                   );
                 },
-                child: Text('Register'),
+                child: Text(
+                  'DAFTAR',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Color.fromARGB(255, 238, 238, 238),
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0), // Rounded corners for button
                   ),
-                  minimumSize: Size(double.infinity, 50.0), // Set a minimum button size
+                  minimumSize: Size(double.infinity, 50.0),
+                  backgroundColor: Color.fromARGB(255, 5, 122, 218),
+                  
+                ),
+              ),
+              SizedBox(height: 10.0),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+                child: Text(
+                  'MASUK',
+                  style: TextStyle(
+                  fontSize: 16.0,
+                  color: Color.fromARGB(255, 5, 122, 218),
+                ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0), // Rounded corners for button
+                  ),
+                  minimumSize: Size(double.infinity, 50.0), 
+                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                  side: BorderSide(
+                    color: Colors.blue, 
+                    width: 1.0, 
+                  ),
                 ),
               ),
             ],

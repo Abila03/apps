@@ -1,9 +1,11 @@
-import 'package:apps/cp.dart';
+import 'package:apps/view/cp.dart';
+import 'package:apps/view/home.dart';
 import 'package:apps/view/landing_page.dart';
+import 'package:apps/view/pemberi/footerD.dart';
 import 'package:flutter/material.dart';
-//import 'riwayat.dart'; 
-//import 'notifikasi.dart'; 
+import 'riwayat_pemberi.dart';
 import '../list_beasiswa.dart';
+import 'package:apps/view/tombol_kanan.dart';
 
 class ProfilePemberi extends StatelessWidget {
   const ProfilePemberi({super.key});
@@ -30,6 +32,10 @@ class ProfilePemberi extends StatelessWidget {
           ProfileMenuItem(
             title: 'Manajemen Beasiswa',
             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RiwayatPemberi()),
+              );
             },
           ),
           //ProfileMenuItem(
@@ -72,65 +78,7 @@ class ProfilePemberi extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Beranda',
-            ),
-            //BottomNavigationBarItem(
-              //icon: Icon(Icons.notifications),
-              //label: 'Notifikasi',
-            //),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profil',
-            ),
-          ],
-          currentIndex: 1, // Profil adalah item ketiga
-          onTap: (index) {
-            if (index == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ListBeasiswa()),
-              );
-            } 
-            //else if (index == 1) {
-              //Navigator.push(
-                //context,
-                //aterialPageRoute(builder: (context) => const NotifikasiPage()),
-              //);
-            //} 
-            else if (index == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePemberi()),
-              );
-            }
-          },
-        ),
-    );
-  }
-}
-
-class ProfileMenuItem extends StatelessWidget {
-  final String title;
-  final Color titleColor;
-  final VoidCallback onTap;
-
-  const ProfileMenuItem({super.key, required this.title, this.titleColor = Colors.black, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(
-          color: titleColor,
-        ),
-      ),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: onTap,
+      bottomNavigationBar: FooterD(),
     );
   }
 }

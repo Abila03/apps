@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:apps/view/pendaftar/footerSM.dart';
-class RiwayatPage extends StatelessWidget {
-  const RiwayatPage({super.key});
+class RiwayatPemberi extends StatelessWidget {
+  const RiwayatPemberi({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +12,8 @@ class RiwayatPage extends StatelessWidget {
           title: const Text('Riwayat'),
           bottom: const TabBar(
             tabs: [
-              Tab(text: 'Diikuti'),
-              Tab(text: 'Selesai diikuti'),
+              Tab(text: 'Sedang berjalan'),
+              Tab(text: 'Selesai '),
             ],
           ),
         ),
@@ -38,8 +38,24 @@ class RiwayatPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Center(
-              child: Text('Belum ada beasiswa yang selesai diikuti'),
+            ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                Card(
+                  child: ListTile(
+                    leading: Image.asset(
+                      'images/poster 6.jpg', 
+                      width: 50,
+                    ),
+                    title: const Text('Djarum Beasiswa Plus'),
+                    subtitle: const Text('Berakhir Tanggal'),
+                    trailing: const Text(
+                      '30 Mei 2024',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

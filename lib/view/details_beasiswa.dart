@@ -192,7 +192,6 @@ class ScholarshipCard extends StatelessWidget {
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
-                
               ),
             ),
             SizedBox(height: 5.0),
@@ -226,9 +225,15 @@ class ScholarshipCard extends StatelessWidget {
                       );
                     }
                   },
-                  child: Text('Daftar Sekarang'),
+                  child: Text(
+                    'Daftar Sekarang',
+                    style: TextStyle(
+                    fontSize: 16.0,
+                    color: Color.fromARGB(255, 238, 238, 238),
+                  ),
+                ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color.fromARGB(255, 5, 122, 218),
                     padding: EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 12.0
                     ),
