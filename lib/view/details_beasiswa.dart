@@ -29,7 +29,7 @@ class DBeasiswa extends StatefulWidget {
 class _DBeasiswaState extends State<DBeasiswa> {
   final Scholarship scholarships = Scholarship(
     name: 'Djarum Beasiswa Plus',
-    imageUrl: 'images/poster 6.jpg',
+    imageUrl: 'images/poster3.jpg',
     link: 'https://kampusmerdeka.kemdikbud.go.id/', 
   );
 
@@ -49,84 +49,44 @@ class _DBeasiswaState extends State<DBeasiswa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Detail Beasiswa',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: false,
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
             ScholarshipCard(scholarship: scholarships),
+            //Spacer(),
+            SizedBox(height: 50.0),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                  onPressed: ()  {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
+                    
+                  },
+                  child: Text(
+                    'Daftar Sekarang',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Color.fromARGB(255, 238, 238, 238),
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 5, 122, 218),
+                    minimumSize: Size(120, 48),
+                  ),
+                ),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Beranda',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifikasi',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profil',
-            ),
-          ],
-          currentIndex: 0, // Profil adalah item ketiga
-          onTap: (index) async {
-            if (index == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ListBeasiswa()),
-              );
-            } else if (index == 1) {
-              _isLoggedIn = await _checkLogin();
-              if (_isLoggedIn) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const NotifikasiPage()),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              }
-            } else if (index == 2) {
-              _isLoggedIn = await _checkLogin();
-              if (_isLoggedIn) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProfilePage()),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              }
-            }
-          },
-        ),
     );
   }
 }
 class ScholarshipCard extends StatelessWidget {
   final Scholarship scholarship;
-  bool _isLoggedIn = false;
-
-  @override
-  Future<bool> _checkLogin() async {
-    // Implement your logic to check if user is logged in using UserManagement class or similar
-    return await UserManagement.isLoggedIn();
-  }
 
   ScholarshipCard({Key? key, required this.scholarship}) : super(key: key);
 
@@ -178,16 +138,18 @@ class ScholarshipCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('- Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
-                Text('- Nulla facilisi. Nam bibendum ligula sit amet odio laoreet, et hendrerit lectus dictum.'),
-                Text('- Donec ullamcorper nulla non metus auctor, at tincidunt neque semper.'),
+                Text('- Pendaftaran Online 27 Maret - 30 Mei 2024'),
+                Text('- Seleksis Administrasi 31 Mei - 9 Juni 2024'),
+                Text('- Tes Tulis Online 10 Juni - 23 Juni 2024'),
+                Text('- Tes Tulis Offline dan Wawancara 24 Juni - 31 Agustus 2024'),
+                Text('- Pengumuman 1 September 2024'),
               ],
             ),
             Divider(color: Colors.grey[300]),
             SizedBox(height: 10.0),
             Text(
               textAlign: TextAlign.left,
-              'Persyaratan:',
+              'Syarat Pendaftaran:',
               style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
@@ -198,50 +160,13 @@ class ScholarshipCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('- Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
-                Text('- Nulla facilisi. Nam bibendum ligula sit amet odio laoreet, et hendrerit lectus dictum.'),
-                Text('- Donec ullamcorper nulla non metus auctor, at tincidunt neque semper.'),
+                Text('- Mahasiswa S1/D4 semester IV'),
+                Text('- IPK minimum 3.00 pada semester III'),
+                Text('- Aktif berorganisasi di dalam atau luar kampus'),
+                Text('- Tidak sedang menerima beasiswa dari pihak lain'),
+                Text('- Kuliah di mitra Perguruan Tinggi Program Djarum Beasiswa Plus'),
               ],
             ),
-            SizedBox(height: 10.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    _isLoggedIn = await _checkLogin();
-                    if (_isLoggedIn) {
-                      if (await canLaunchUrl(Uri.parse(scholarship.link))) {
-                        await launchUrl(Uri.parse(scholarship.link));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Link pendaftaran tidak valid')),
-                        );
-                      }
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Daftar Sekarang',
-                    style: TextStyle(
-                    fontSize: 16.0,
-                    color: Color.fromARGB(255, 238, 238, 238),
-                  ),
-                ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 5, 122, 218),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 12.0
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20.0),
           ],
         ),
       ),

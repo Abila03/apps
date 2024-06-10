@@ -5,13 +5,12 @@ class header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Image.asset(
-          'images/header-home.png',
-          height: 200.0,
-          width: 200.0,
+    return Container(
+      height: 200.0, // Adjust height as needed
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('images/header-home.png'), // Replace with your image path
+          fit: BoxFit.cover, // Adjust fit for desired behavior (cover, fill, etc.)
         ),
       ),
     );
