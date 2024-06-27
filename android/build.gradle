@@ -1,7 +1,19 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral() // Added to ensure Maven Central is included for buildscript
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.1' // Ensure this is the correct Gradle plugin version
+        classpath 'com.google.gms:google-services:4.3.10'
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
+        jcenter() // Sometimes needed for legacy dependencies, though it's deprecated
     }
 }
 

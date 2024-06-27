@@ -1,6 +1,6 @@
+import 'package:apps/view/home.dart';
 import 'package:flutter/material.dart';
 import 'package:apps/view/pendaftar/notifikasi.dart';
-import 'package:apps/view/list_beasiswa.dart';
 import 'package:apps/view/pendaftar/profile.dart';
 
 class Footersm extends StatelessWidget{
@@ -26,7 +26,7 @@ class Footersm extends StatelessWidget{
             if (index == 0) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ListBeasiswa()),
+                MaterialPageRoute(builder: (context) => Home()),
               );
             } else if (index == 1) {
               Navigator.push(

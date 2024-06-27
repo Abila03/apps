@@ -1,4 +1,6 @@
+import 'package:apps/controller/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'view/login_page.dart';
 import 'view/list_beasiswa.dart';
 import 'view/landing_page.dart';
@@ -11,8 +13,12 @@ import 'view/regulator/profile.dart';
 import 'view/pemberi/profile.dart';
 import 'view/home.dart';
 
-void main() async {
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -28,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      initialRoute: '/home',
+      initialRoute: '/profile',
       routes: {
         '/login': (context) => LoginPage(),
         '/list': (context) => ListBeasiswa(),

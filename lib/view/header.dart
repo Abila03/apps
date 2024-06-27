@@ -6,8 +6,10 @@ class header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200.0, // Adjust height as needed
-      decoration: BoxDecoration(
+      height: 250.0, 
+      width: 1000,
+      decoration: 
+      const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('images/header-home.png'), // Replace with your image path
           fit: BoxFit.cover, // Adjust fit for desired behavior (cover, fill, etc.)

@@ -1,9 +1,8 @@
 import 'package:apps/view/cp.dart';
-import 'package:apps/view/home.dart';
+import 'package:apps/view/pendaftar/profile.dart';
 import 'package:flutter/material.dart';
-import 'list_beasiswa.dart';
-import 'package:apps/controller/usermanage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:apps/controller/usermanage.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   
@@ -131,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Home()),
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
                   );
                 },
                 child: Text(

@@ -3,11 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'pendaftar/notifikasi.dart';
-import 'pendaftar/profile.dart';
-import 'list_beasiswa.dart';
 import '../controller/usermanage.dart';
-import 'login_page.dart';
+//import 'login_page.dart';
 
 class Scholarship {
   final String name;
@@ -30,11 +27,11 @@ class _DBeasiswaState extends State<DBeasiswa> {
   final Scholarship scholarships = Scholarship(
     name: 'Djarum Beasiswa Plus',
     imageUrl: 'images/poster3.jpg',
-    link: 'https://kampusmerdeka.kemdikbud.go.id/', 
+    link: 'https://beasiswa.kemdikbud.go.id/pendaftaran/login', 
   );
 
   final TextEditingController _searchController = TextEditingController();
-  bool _isLoggedIn = false;
+  //bool _isLoggedIn = false;
 
   @override
   void dispose() {
@@ -46,9 +43,19 @@ class _DBeasiswaState extends State<DBeasiswa> {
     return await UserManagement.isLoggedIn();
   }
 
+    Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
         child: Column(
@@ -59,13 +66,9 @@ class _DBeasiswaState extends State<DBeasiswa> {
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
-                  onPressed: ()  {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    
-                  },
+              onPressed: () {
+                  _launchURL(scholarships.link);
+              },
                   child: Text(
                     'Daftar Sekarang',
                     style: TextStyle(
@@ -77,7 +80,7 @@ class _DBeasiswaState extends State<DBeasiswa> {
                     backgroundColor: Color.fromARGB(255, 5, 122, 218),
                     minimumSize: Size(120, 48),
                   ),
-                ),
+              ),
             ),
           ],
         ),

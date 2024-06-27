@@ -1,11 +1,5 @@
 import 'package:apps/view/details_beasiswa.dart';
-import 'package:apps/view/footer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import '/services/newsAPI.dart';
-import '/models/news.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class Scholarship {
   final String name;
@@ -22,9 +16,9 @@ class ListBeasiswa extends StatefulWidget {
 
 class _ListBeasiswaState extends State<ListBeasiswa> {
   final List<Scholarship> scholarships = [
-    Scholarship(name: 'Djarum Beasiswa Plus', imageUrl: 'images/poster 6.jpg', details: 'Pendaftaran : 10 Juni - 10 Juli 2024',),
-    Scholarship(name: 'Beasiswa Indonesia Bangkit', imageUrl: 'images/poster 2.jpg', details: 'Pendaftaran : 30 Mei - 15 Juli 2024'),
-    Scholarship(name: 'LPDP Beasiswa', imageUrl: 'images/poster 5.png', details: 'Pendaftaran : 1 Juni - 30 Juli 2024'),
+    const Scholarship(name: 'Djarum Beasiswa Plus', imageUrl: 'images/poster 6.jpg', details: 'Pendaftaran : 10 Juni - 10 Juli 2024',),
+    const Scholarship(name: 'Beasiswa Indonesia Bangkit', imageUrl: 'images/poster 2.jpg', details: 'Pendaftaran : 30 Mei - 15 Juli 2024'),
+    const Scholarship(name: 'LPDP Beasiswa', imageUrl: 'images/poster 5.png', details: 'Pendaftaran : 1 Juni - 30 Juli 2024'),
   ];
 
   final TextEditingController _searchController = TextEditingController();
@@ -46,27 +40,26 @@ class _ListBeasiswaState extends State<ListBeasiswa> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Beasiswa',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search scholarships...',
               ),
               onChanged: (text) => setState(() => _searchText = text),
             ),
-            SizedBox(height: 20.0),
-            
+            const SizedBox(height: 20.0),
             Column(
               children: filteredScholarships.map((scholarship) => ScholarshipCard(scholarship: scholarship)).toList(),
             ),
@@ -95,7 +88,7 @@ class ScholarshipCard extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -113,7 +106,7 @@ class ScholarshipCard extends StatelessWidget {
                       width: 80.0,
                       height: 80.0,
                       color: Colors.white,
-                      child: Icon(
+                      child: const Icon(
                         Icons.error,
                         color: Colors.red,
                         size: 30.0,
@@ -123,7 +116,7 @@ class ScholarshipCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 10.0), 
+            const SizedBox(width: 10.0), 
             Flexible(
               flex: 2,
               child: Column(
@@ -131,7 +124,7 @@ class ScholarshipCard extends StatelessWidget {
                 children: [ 
                   Text(
                     scholarship.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,

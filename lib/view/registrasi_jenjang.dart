@@ -1,8 +1,7 @@
-import 'package:apps/view/verifikasi.dart';
+import 'package:apps/view/registrasi.dart';
 import 'package:flutter/material.dart';
-
-
-
+import 'package:firebase_database/firebase_database.dart'; // Import library Firebase Realtime Database
+import 'verifikasi.dart'; // Pastikan Anda mengganti sesuai struktur proyek Anda
 
 class jenjang extends StatefulWidget {
   @override
@@ -11,25 +10,44 @@ class jenjang extends StatefulWidget {
 
 class _EducationFormState extends State<jenjang> {
   String educationLevel = 'SD';
+  final TextEditingController _schoolNameController = TextEditingController();
+
+  void _submitData() async {
+    try {
+      // Mengambil data pengguna yang disimpan di Firebase Realtime Database
+      DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('pendaftar');
+      DataSnapshot dataSnapshot = await databaseReference.once()as DataSnapshot;
+
+      // Memperbarui data pengguna dengan informasi jenjang pendidikan
+      await databaseReference.child(dataSnapshot.key!).update({
+        'jenjang': educationLevel,
+        'schoolName': _schoolNameController.text,
+        // Anda dapat menambahkan data lain sesuai kebutuhan
+      });
+
+      // Navigasi ke langkah registrasi selanjutnya (contoh Verifikasi)
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Verifikasi()),
+      );
+    } catch (e) {
+      print('Error updating data: $e');
+      // Tampilkan pesan kesalahan jika diperlukan
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Daftar'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back button press
-          },
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+                        Text(
               'Pendidikan Saat Ini',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -96,6 +114,7 @@ class _EducationFormState extends State<jenjang> {
             ),
             SizedBox(height: 16),
             TextField(
+              controller: _schoolNameController,
               decoration: InputDecoration(
                 labelText: 'Nama Sekolah',
                 hintText: 'Masukkan nama sekolah kamu',
@@ -109,19 +128,21 @@ class _EducationFormState extends State<jenjang> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 150, // Set width for Sebelumnya button
-                  height: 50, // Set height for Sebelumnya button
+                  width: 150,
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle previous button press
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Registrasi()),
+                      );
                     },
                     child: Text(
                       'Sebelumnya',
-                      style: TextStyle(fontSize: 18, 
-                      color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Set the color for Sebelumnya button
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -129,8 +150,8 @@ class _EducationFormState extends State<jenjang> {
                   ),
                 ),
                 SizedBox(
-                  width: 150, // Set width for Selanjutnya button
-                  height: 50, // Set height for Selanjutnya button
+                  width: 150,
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -142,11 +163,10 @@ class _EducationFormState extends State<jenjang> {
                     },
                     child: Text(
                       'Selanjutnya',
-                      style: TextStyle(fontSize: 18, 
-                      color: Colors.white),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Set the color for Selanjutnya button
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -161,3 +181,4 @@ class _EducationFormState extends State<jenjang> {
     );
   }
 }
+

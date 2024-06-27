@@ -1,19 +1,35 @@
+import 'package:apps/view/login_page.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:firebase_database/firebase_database.dart'; // Import library Firebase Realtime Database
 
 class Verifikasi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _verificationController = TextEditingController();
+
+    void _verifyData() async {
+      try {
+        // Mengambil data pengguna yang disimpan di Firebase Realtime Database
+        DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('users');
+        DataSnapshot dataSnapshot = await databaseReference.once() as DataSnapshot; // Mengubah tipe ke DataSnapshot
+
+        // Memperbarui data pengguna dengan kode verifikasi
+        await databaseReference.child(dataSnapshot.key!).update({
+          'verificationCode': _verificationController.text,
+          // Anda dapat menambahkan data lain sesuai kebutuhan
+        });
+
+        // Navigasi ke halaman selanjutnya (misalnya ke halaman beranda)
+        Navigator.pushNamed(context, '/home');
+      } catch (e) {
+        print('Error verifying data: $e');
+        // Tampilkan pesan kesalahan jika diperlukan
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Add navigation logic here
-          },
-        ),
+        title: Text('Verifikasi'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -42,6 +58,7 @@ class Verifikasi extends StatelessWidget {
                   width: 50,
                   height: 50,
                   child: TextField(
+                    controller: _verificationController,
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,
@@ -49,7 +66,7 @@ class Verifikasi extends StatelessWidget {
                     decoration: InputDecoration(
                       counterText: '',
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue), // Change the border color here
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                       filled: true,
                       fillColor: Colors.white,
@@ -62,11 +79,11 @@ class Verifikasi extends StatelessWidget {
             Center(
               child: TextButton(
                 onPressed: () {
-                  // Add resend code logic here
+                  // Logika untuk mengirim ulang kode verifikasi
                 },
                 child: Text(
                   'Tidak dapat kode? Kirim ulang kode',
-                  style: TextStyle(fontSize: 14), // Adjust font size here
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),
@@ -76,36 +93,39 @@ class Verifikasi extends StatelessWidget {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    // Add cancel logic here
+                    // Handle cancel logic
                   },
                   child: Text(
-                    'Batalkan', 
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.blue)), // Adjust font size here
+                    'Batalkan',
+                    style: TextStyle(fontSize: 18, color: Colors.blue),
+                  ),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.blue, 
-                    minimumSize: Size(150, 50), // Adjust button size here
+                    foregroundColor: Colors.blue,
+                    minimumSize: Size(150, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12), // Adjust corner radius here
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    side: BorderSide(color: Colors.blue, width: 2), // Set border color
+                    side: BorderSide(color: Colors.blue, width: 2),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Add verification logic here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
                   },
                   child: Text(
-                    'Verifikasi', 
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white)), // Adjust font size here
+                    'Verifikasi',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Set button background color here
-                    minimumSize: Size(150, 50), // Adjust button size here
+                    backgroundColor: Colors.blue,
+                    minimumSize: Size(150, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12), // Adjust corner radius here
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),

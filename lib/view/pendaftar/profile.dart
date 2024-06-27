@@ -20,9 +20,9 @@ class ProfilePage extends StatelessWidget {
           const Card(
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: Colors.grey,
+                child: Icon(Icons.person, color: Colors.white),
               ),
-              title: Text('Aulia Putri Romadon'),
+              title: Text('Aulia Putri R'),
               subtitle: Text('Mahasiswa Universitas Jember'),
             ),
           ),
@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
           ProfileMenuItem(
             title: 'Manajemen Pendidikan',
             onTap: () {
-              // Aksi ketika item diklik
+              
             },
           ),
           ProfileMenuItem(
@@ -54,7 +54,7 @@ class ProfilePage extends StatelessWidget {
           ProfileMenuItem(
             title: 'Bantuan',
             onTap: () {
-              // Aksi ketika item diklik
+              
             },
           ),
           ProfileMenuItem(
@@ -79,5 +79,3 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
-
-
